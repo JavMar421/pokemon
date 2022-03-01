@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pokemon.PokemonSeleccionadoController">
+    <children>
+        <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/fondo.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="imagePokeSelect" fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="imagePokeEnemy" fitHeight="109.0" fitWidth="136.0" layoutX="387.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+      <BorderPane fx:id="borderAtacante" layoutX="331.0" layoutY="250.0" onMouseDragExited="#onMouseAtackExited" onMouseEntered="#onMouseAtackEntered" onMouseExited="#onMouseAtackExited" prefHeight="50.0" prefWidth="255.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
+         <bottom>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="psAtacante" text="Label" />
+                  <ProgressBar fx:id="progressAtacante" prefWidth="200.0" progress="1.0" style="-fx-accent: #20ee31; -fx-control-inner-background: transparent; -fx-text-box-border: transparent;">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ProgressBar>
+               </children>
+            </HBox>
+         </bottom>
+         <right>
+            <Label fx:id="nivelAtacante" text="Label" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="20.0" />
+               </BorderPane.margin>
+            </Label>
+         </right>
+         <left>
+            <Label fx:id="nombreAtacante" text="Label" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="20.0" />
+               </BorderPane.margin>
+            </Label>
+         </left>
+      </BorderPane>
+      <BorderPane fx:id="borderEnemy" layoutX="20.0" layoutY="10.0" onMouseEntered="#onMouseEnemyEntered" onMouseExited="#onMouseEnemyExited" prefHeight="50.0" prefWidth="275.0" style="-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-width: 1;">
+         <right>
+            <Label fx:id="nivelEnemy" text="Label" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="20.0" />
+               </BorderPane.margin>
+            </Label>
+         </right>
+         <left>
+            <Label fx:id="nombreEnemy" text="Label" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="20.0" />
+               </BorderPane.margin>
+            </Label>
+         </left>
+         <bottom>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="psEnemy" text="Label" />
+                  <ProgressBar fx:id="progressEnemy" prefWidth="200.0" progress="1.0" style="-fx-accent: #20ee31; -fx-control-inner-background: transparent; -fx-text-box-border: transparent;">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ProgressBar>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <BorderPane fx:id="borderMenu" layoutX="40.0" layoutY="280.0" prefHeight="50.0" prefWidth="194.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
+         <left>
+            <Label fx:id="atacarLabel" onMouseClicked="#ataqueClicked" onMouseEntered="#atackEntered" onMouseExited="#atackExited" text="ATACAR" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="15.0" />
+               </BorderPane.margin>
+            </Label>
+         </left>
+         <right>
+            <Label fx:id="curarLabel" onMouseClicked="#curarLabelClicked" onMouseEntered="#curarLabelEntered" onMouseExited="#curarLabelExited" text="CURAR" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="15.0" />
+               </BorderPane.margin>
+            </Label>
+         </right>
+      </BorderPane>
+      <BorderPane fx:id="ataqueMenu" layoutX="20.0" layoutY="260.0" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" visible="false">
+         <left>
+            <Label fx:id="ataqueSeguro" onMouseClicked="#ataqueSeguroClicked" onMouseEntered="#ataqueSeguroEntered" onMouseExited="#ataqueSeguroExited" style="-fx-border-color: black; -fx-border-width: 2;" text="ATK SEGURO" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="15.0" />
+               </BorderPane.margin>
+            </Label>
+         </left>
+         <center>
+            <Label fx:id="ataqueArriesgado" onMouseClicked="#ataqueArriesgadoClicked" onMouseEntered="#ataqueArriesgadoEntered" onMouseExited="#ataqueArriesgadoExited" style="-fx-border-color: black; -fx-border-width: 2;" text="ATK ARRIESGADO" BorderPane.alignment="CENTER" />
+         </center>
+         <bottom>
+            <Label fx:id="ataqueMuyArriesgado" onMouseClicked="#ataqueMuyArriesgadoClicked" onMouseEntered="#ataqueMuyArriesgadoEntered" onMouseExited="#ataqueMuyArriesgadoExited" style="-fx-border-color: black; -fx-border-width: 2;" text="ATK MUY ARRIESGADO" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" right="15.0" />
+               </BorderPane.margin>
+            </Label>
+         </bottom>
+         <right>
+            <Label fx:id="cancelarAtack" onMouseClicked="#cancelarAtackClicked" onMouseEntered="#cancelarAtackEntered" onMouseExited="#cancelarAtackExited" style="-fx-background-color: red; -fx-border-color: black; -fx-border-width: 2;" text="CANCELAR" textFill="WHITE" translateX="-5.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets top="3.0" />
+               </padding>
+            </Label>
+         </right>
+      </BorderPane>
+    </children>
+</AnchorPane>
