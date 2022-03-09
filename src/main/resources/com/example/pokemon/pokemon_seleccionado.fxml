@@ -41,6 +41,9 @@
                </BorderPane.margin>
             </Label>
          </left>
+         <top>
+            <ImageView fx:id="estadoAtacante" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+         </top>
       </BorderPane>
       <BorderPane fx:id="borderEnemy" layoutX="20.0" layoutY="10.0" onMouseEntered="#onMouseEnemyEntered" onMouseExited="#onMouseEnemyExited" prefHeight="50.0" prefWidth="275.0" style="-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-width: 1;">
          <right>
@@ -85,6 +88,9 @@
                </BorderPane.margin>
             </Label>
          </right>
+         <center>
+            <Label fx:id="mochila" onMouseClicked="#mochilaclicked" text="MOCHILA" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
       <BorderPane fx:id="ataqueMenu" layoutX="20.0" layoutY="260.0" prefHeight="70.0" prefWidth="300.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" visible="false">
          <left>

@@ -1,6 +1,8 @@
 package com.example.pokemon
 
 import javafx.fxml.FXML
+import javafx.fxml.FXMLLoader
+import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
@@ -8,6 +10,7 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 import java.io.File
+import java.io.IOException
 import java.util.*
 import kotlin.random.Random
 import kotlin.system.exitProcess
@@ -19,6 +22,8 @@ class PokemonSeleccionadoController() {
     private lateinit var imagePokeEnemy:ImageView
     @FXML
     private lateinit var nombreAtacante:Label
+    @FXML
+    private lateinit var estadoAtacante:ImageView
     @FXML
     private lateinit var progressAtacante: ProgressBar
     @FXML
@@ -50,6 +55,9 @@ class PokemonSeleccionadoController() {
     @FXML
     private lateinit var curarLabel: Label
     @FXML
+    private lateinit var mochila: Label
+
+    @FXML
     private lateinit var cancelarAtack: Label
     @FXML
     private lateinit var borderMenu: BorderPane
@@ -65,16 +73,16 @@ class PokemonSeleccionadoController() {
 
 
     //Intefazes Pokemon
-    class InterfazPokeCombatSelect(var nombre: Label, var vida:ProgressBar, var ps:Label, var nivel:Label, var imagen: ImageView)
+    class InterfazPokeCombatSelect(var nombre: Label, var vida:ProgressBar, var ps:Label, var nivel:Label, var imagen: ImageView, var estadoimagen: ImageView)
     class InterfazPokeCombatEnemy(var nombre: Label, var vida:ProgressBar, var ps:Label, var nivel:Label, var imagen: ImageView, var pokeEnemy: PokeEnemy)
-    var pokeselec=Pokemon("Arcanine","src\\main\\resources\\com\\example\\pokemon\\Images\\arcanine1.gif",204,65,"src\\main\\resources\\com\\example\\pokemon\\Images\\Macho.png","src\\main\\resources\\com\\example\\pokemon\\Images\\arcanine1_combate.gif")
+    var pokeselec=Pokemon("Arcanine","src\\main\\resources\\com\\example\\pokemon\\Images\\arcanine1.gif",204,65,"src\\main\\resources\\com\\example\\pokemon\\Images\\Macho.png","src\\main\\resources\\com\\example\\pokemon\\Images\\arcanine1_combate.gif","")
 
     //Cargar Seleccionado
     fun cargarPokemon(pokemon :Pokemon) {
         pokemon.click=false
         pokeselec = pokemon
 
-        val atackInterfaz=InterfazPokeCombatSelect(nombreAtacante,progressAtacante,psAtacante,nivelAtacante,imagePokeSelect)
+        val atackInterfaz=InterfazPokeCombatSelect(nombreAtacante,progressAtacante,psAtacante,nivelAtacante,imagePokeSelect,estadoAtacante)
 
         inicializarSeleccion(atackInterfaz)
 
@@ -85,7 +93,8 @@ class PokemonSeleccionadoController() {
 
         val pokeSelect= File(pokeselec.imagenCombate)
         interfazPokeCombat.imagen.image=Image(pokeSelect.toURI().toString())
-
+        val fileestado= File(pokeselec.fotoestado)
+        interfazPokeCombat.estadoimagen.image=Image(fileestado.toURI().toString())
         interfazPokeCombat.nombre.text=pokeselec.nombre
         interfazPokeCombat.ps.text="PS"
         interfazPokeCombat.nivel.text="Nvl "+pokeselec.nivel
@@ -119,11 +128,6 @@ class PokemonSeleccionadoController() {
             arrayCopia
         else
             arrayEnemy
-    }
-    fun alertaArrayVacio(){
-        anchorMuerto.visibleProperty().set(true)
-        textoMuerto.text="No quedan enemigos"
-        continuarMuerto.disableProperty().set(true)
     }
     fun inicializarEnemy(interfazPokeCombatEnemy: InterfazPokeCombatEnemy){
 
@@ -175,6 +179,7 @@ class PokemonSeleccionadoController() {
     fun resetVerVidaEnemy(label: Label){
         label.text="PS"
     }
+
     @FXML
     fun onMouseAtackEntered(){
         verVida(psAtacante)
@@ -192,6 +197,7 @@ class PokemonSeleccionadoController() {
     fun onMouseEnemyExited(){
         resetVerVidaEnemy(psEnemy)
     }
+    //Botones Ataque
     @FXML
     fun ataqueClicked(){
         borderMenu.visibleProperty().set(false)
@@ -262,6 +268,7 @@ class PokemonSeleccionadoController() {
         ataqueMenu.visibleProperty().set(false)
 
     }
+
     var seleccionDePokemonController=SeleccionDePokemonController()
     @FXML
     fun ataqueSeguroClicked(){
@@ -343,7 +350,39 @@ class PokemonSeleccionadoController() {
            }
        }
     }
+    companion object var stage: Stage? =null
+    @FXML
+    fun mochilaclicked(){
+        println("mochila")
+        stage=null
+        try {
+            if(stage==null) {
 
+                stage = Stage()
+                stage?.isResizable = false
+                val loader = FXMLLoader(HelloApplication::class.java.getResource("mochila.fxml"))
+                val scene = Scene(loader.load(), 600.0, 400.0)
+                stage?.title = "Mochila"
+                stage?.scene = scene
+                stage?.show()
+                //enviar pokemon
+                val controller = loader.getController<MochilaController>()
+                        controller.cargarPokemonMochila(pokeselec)
+                        controller.enviarDatosMochila(this)
+            }
+        }
+        catch (e: IOException){
+            e.printStackTrace()
+        }
+    }
+
+    //enviar pokemon
+    fun enviarDatosMenuSeleccion(seleccionDePokemonController: SeleccionDePokemonController){
+        this.seleccionDePokemonController=seleccionDePokemonController
+    }
+
+
+    //alertas
     fun alertaSelec(pokemon: Pokemon){
 
         val alert = Alert(Alert.AlertType.CONFIRMATION)
@@ -389,10 +428,11 @@ class PokemonSeleccionadoController() {
        seleccionDePokemonController.stage=null
 
     }
-
-
-    fun enviarDatosMenuSeleccion(seleccionDePokemonController: SeleccionDePokemonController){
-        this.seleccionDePokemonController=seleccionDePokemonController
+    fun actualizar(){
+        seleccionDePokemonController.actualizarEstado(pokeselec)
     }
+
+
+
 
 }

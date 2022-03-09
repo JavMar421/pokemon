@@ -18,12 +18,15 @@ class SeleccionDePokemonController {
 
 
 
-    //POKEMON 0,0
+    //POKEMON 1
     @FXML
     private lateinit var vBox00: VBox
 
     @FXML
     private lateinit var nombre00: Label
+
+    @FXML
+    private lateinit var estado1: ImageView
 
     @FXML
     private lateinit var nivel00: Label
@@ -46,12 +49,16 @@ class SeleccionDePokemonController {
     @FXML
     private lateinit var ps00: Label
 
-    //Pokemon 1,0
+
+    //Pokemon 2
     @FXML
     private lateinit var vBox10: VBox
 
     @FXML
     private lateinit var nombre10: Label
+
+    @FXML
+    private lateinit var estado2: ImageView
 
     @FXML
     private lateinit var nivel10: Label
@@ -74,12 +81,15 @@ class SeleccionDePokemonController {
     @FXML
     private lateinit var ps10: Label
 
-    //Pokemon 2,0
+    //Pokemon 3
     @FXML
     private lateinit var vBox20: VBox
 
     @FXML
     private lateinit var nombre20: Label
+
+    @FXML
+    private lateinit var estado3: ImageView
 
     @FXML
     private lateinit var nivel20: Label
@@ -102,12 +112,15 @@ class SeleccionDePokemonController {
     @FXML
     private lateinit var ps20: Label
 
-    //Pokemon 0,1
+    //Pokemon 4
     @FXML
     private lateinit var vBox01: VBox
 
     @FXML
     private lateinit var nombre01: Label
+
+    @FXML
+    private lateinit var estado4: ImageView
 
     @FXML
     private lateinit var nivel01: Label
@@ -130,12 +143,15 @@ class SeleccionDePokemonController {
     @FXML
     private lateinit var ps01: Label
 
-    //Pokemon 1,1
+    //Pokemon 5
     @FXML
     private lateinit var vBox11: VBox
 
     @FXML
     private lateinit var nombre11: Label
+
+    @FXML
+    private lateinit var estado5: ImageView
 
     @FXML
     private lateinit var nivel11: Label
@@ -158,12 +174,15 @@ class SeleccionDePokemonController {
     @FXML
     private lateinit var ps11: Label
 
-    //Pokemon 2,1
+    //Pokemon 6
     @FXML
     private lateinit var vBox21: VBox
 
     @FXML
     private lateinit var nombre21: Label
+
+    @FXML
+    private lateinit var estado6: ImageView
 
     @FXML
     private lateinit var nivel21: Label
@@ -192,19 +211,19 @@ class SeleccionDePokemonController {
     companion object var stage: Stage? =null
 
     //pokemons
-    class InterfazPokemon(var nombre: Label,var nivel: Label,var ps: Label,var imagenPokemon: ImageView,var imagenGenero : ImageView,var vida : ProgressBar,var border: BorderPane,var pokemon: Pokemon)
+    class InterfazPokemon(var nombre: Label,var nivel: Label,var ps: Label,var imagenPokemon: ImageView,var imagenGenero : ImageView,var vida : ProgressBar,var border: BorderPane,var imagenestado: ImageView,var pokemon: Pokemon)
     var listInterfaces = mutableListOf<InterfazPokemon>()
 
     @FXML
     fun initialize(){
 
         listInterfaces = mutableListOf(
-            InterfazPokemon(nombre00,nivel00,ps00,pokemon00,genero00,vida00,border00,arraypoke[0]),
-            InterfazPokemon(nombre10,nivel10,ps10,pokemon10,genero10,vida10,border10,arraypoke[1]),
-            InterfazPokemon(nombre20,nivel20,ps20,pokemon20,genero20,vida20,border20,arraypoke[2]),
-            InterfazPokemon(nombre01,nivel01,ps01,pokemon01,genero01,vida01,border01,arraypoke[3]),
-            InterfazPokemon(nombre11,nivel11,ps11,pokemon11,genero11,vida11,border11,arraypoke[4]),
-            InterfazPokemon(nombre21,nivel21,ps21,pokemon21,genero21,vida21,border21,arraypoke[5]),
+            InterfazPokemon(nombre00,nivel00,ps00,pokemon00,genero00,vida00,border00,estado1,arraypoke[0]),
+            InterfazPokemon(nombre10,nivel10,ps10,pokemon10,genero10,vida10,border10,estado2,arraypoke[1]),
+            InterfazPokemon(nombre20,nivel20,ps20,pokemon20,genero20,vida20,border20,estado3,arraypoke[2]),
+            InterfazPokemon(nombre01,nivel01,ps01,pokemon01,genero01,vida01,border01,estado4,arraypoke[3]),
+            InterfazPokemon(nombre11,nivel11,ps11,pokemon11,genero11,vida11,border11,estado5,arraypoke[4]),
+            InterfazPokemon(nombre21,nivel21,ps21,pokemon21,genero21,vida21,border21,estado6,arraypoke[5]),
         )
 
         listInterfaces.forEachIndexed { index, interfazPokemon ->
@@ -218,6 +237,8 @@ class SeleccionDePokemonController {
     //Asignaciones  por su array
     fun inicializar(interfazPokemon: InterfazPokemon,i:Int){
         interfazPokemon.nombre.text=arraypoke[i].nombre
+        val fileEstado= File(arraypoke[i].fotoestado)
+        interfazPokemon.imagenestado.image=Image(fileEstado.toURI().toString())
         interfazPokemon.nivel.text="Nv "+arraypoke[i].nivel.toString()
         interfazPokemon.ps.text=arraypoke[i].vidaRest.toString() + "/" + arraypoke[i].vidaMax.toString()
         val filePokemon= File(arraypoke[i].image)
@@ -361,6 +382,7 @@ class SeleccionDePokemonController {
 
                     }
                 }
+                continuar.disableProperty().set(true)
             }
         }catch (e: IOException){
             e.printStackTrace()
@@ -371,6 +393,8 @@ class SeleccionDePokemonController {
     fun actualizarEstado(pokemon: Pokemon){
         listInterfaces.forEachIndexed { index, interfazPokemon ->
             if (pokemon.nombre.equals(interfazPokemon.pokemon.nombre)){
+                val fileEstado= File(pokemon.fotoestado)
+                interfazPokemon.imagenestado.image=Image(fileEstado.toURI().toString())
                 interfazPokemon.ps.text=pokemon.vidaRest.toString() + "/" + pokemon.vidaMax.toString()
                 interfazPokemon.vida.progress= pokemon.vidaRest.toDouble()/ pokemon.vidaMax.toDouble()
             if (interfazPokemon.vida.progress<0.25)
