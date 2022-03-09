@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pokemon.MochilaController">
+   <children>
+      <Label text="Mochila" />
+      <ImageView fx:id="antidoto" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#antidotoclicked" pickOnBounds="true" preserveRatio="true" x="50.0" y="50.0">
+         <image>
+            <Image url="@Images/veneno.png" />
+         </image>
+
+      </ImageView>
+      <Label layoutX="50.0" layoutY="165.0" text="Cura el Veneno" />
+      <Label layoutX="50.0" layoutY="25.0" text="Antidoto" />
+
+
+      <ImageView fx:id="antiquemar" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#antiquemarclicked" pickOnBounds="true" preserveRatio="true" x="250.0" y="50.0">
+         <image>
+            <Image url="@Images/fuego.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="250.0" layoutY="165.0" text="Cura las Quemaduras" />
+      <Label layoutX="250.0" layoutY="25.0" text="Antiquemar" />
+      <ImageView fx:id="descongelante" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#descongelanteclicked" pickOnBounds="true" preserveRatio="true" x="450.0" y="50.0">
+         <image>
+            <Image url="@Images/frio.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="450.0" layoutY="25.0" text="Descongelante" />
+      <Label layoutX="450.0" layoutY="165.0" text="Cura la Congelacion" />
+   </children>
+
+</AnchorPane>
